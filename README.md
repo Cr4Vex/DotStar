@@ -1,0 +1,85 @@
+# DotStar
+
+A lightweight image format converter that processes images locally in your browser — no uploads, tracking, or accounts required.
+
+**[Try it live →](https://cr4vex.github.io/DotStar/)**
+
+![DotStar converting images entirely in the browser](docs/screenshot.png)
+
+Drop in a PNG or JPG, pick an output format, and convert. Every byte stays on your machine: there is no backend, no analytics, and no network request after the page loads.
+
+## Why I Created DotStar
+
+Most online image converters work the same way: you hand your files to a stranger's server, wait, and hope they delete them afterwards. For a holiday photo that might be fine. For a scanned document, an ID, or a screenshot with private information, it isn't.
+
+Browsers have been able to decode and re-encode images on their own for years. DotStar is that idea taken to its conclusion — a converter with nowhere to send your files, because there is no server to send them to.
+
+## Philosophy
+
+- **Local only.** Conversion happens on a `<canvas>` in your tab. Files never leave the device.
+- **No build step.** Open `index.html` and it runs. No bundler, no install, no toolchain.
+- **No dependencies.** Plain HTML, CSS, and JavaScript.
+- **Works offline.** Once the page is loaded, you can disconnect and keep converting.
+
+## Features
+
+- Drag and drop files, or browse for them — multiple at a time
+- Conversion queue with per-file progress, status, and before/after size
+- Reads **PNG, JPG, WebP, AVIF, GIF, and BMP**; writes **JPG** or **PNG**
+- Download files one by one, or all at once
+- Remove any file from the queue, or clear the whole thing
+- EXIF metadata is dropped as a side effect of re-encoding
+
+## Getting Started
+
+Clone the repository and open the page:
+
+```bash
+git clone https://github.com/Cr4Vex/DotStar.git
+cd DotStar
+```
+
+Then open `index.html` in your browser — that's the whole setup.
+
+Some browsers restrict `file://` pages, so if anything misbehaves, serve the folder over HTTP instead:
+
+```bash
+python -m http.server 8000
+```
+
+and visit `http://localhost:8000`.
+
+Because the project is fully static, it can also be published as-is with GitHub Pages (Settings → Pages → deploy from the `main` branch, root folder).
+
+## Project Structure
+
+```
+DotStar/
+├── index.html          # Markup for the whole page
+└── src/
+    ├── css/
+    │   └── styles.css  # Styles and theme variables
+    └── js/
+        ├── ui.js       # DOM references and queue rendering
+        ├── convert.js  # Canvas decode/encode and file download
+        └── main.js     # Queue state and event wiring
+```
+
+## Limitations
+
+- **Camera RAW is not supported.** Browsers ship no RAW decoder, so formats like CR2, NEF, ARW, and DNG cannot be read at all.
+- **WebP and AVIF input depends on your browser.** Both decode in current Chrome, Edge, Firefox, and Safari; older versions may fail.
+- **Animated GIFs lose their animation.** Canvas has no concept of frames, so only the first one is converted.
+- **JPG has no transparency.** Converting a transparent PNG to JPG flattens the transparent areas onto white.
+- Very large images are limited by the browser's canvas size and available memory.
+
+## Author
+
+Created by Cr4Vex
+
+GitHub:
+https://github.com/Cr4Vex
+
+## License
+
+Licensed under the MIT License. See [LICENSE](LICENSE) for details.
