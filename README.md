@@ -1,8 +1,19 @@
+<div align="center">
+
+<img src="src/assets/dotstar-mark.svg" alt="DotStar" width="150">
+
 # DotStar
 
-A lightweight image format converter that processes images locally in your browser — no uploads, tracking, or accounts required.
+**A lightweight image format converter that processes images locally in your browser — no uploads, tracking, or accounts required.**
 
-**[Try it live →](https://cr4vex.github.io/DotStar/)**
+[**Try it live →**](https://cr4vex.github.io/DotStar/)
+
+[![License](https://img.shields.io/badge/license-MIT-aeb5f6?style=flat-square)](LICENSE)
+![Build step](https://img.shields.io/badge/build_step-none-34d8b4?style=flat-square)
+![Backend](https://img.shields.io/badge/backend-none-34d8b4?style=flat-square)
+![Works offline](https://img.shields.io/badge/works_offline-yes-34d8b4?style=flat-square)
+
+</div>
 
 ![DotStar converting images entirely in the browser](docs/screenshot.png)
 
@@ -16,20 +27,28 @@ Browsers have been able to decode and re-encode images on their own for years. D
 
 ## Philosophy
 
-- **Local only.** Conversion happens on a `<canvas>` in your tab. Files never leave the device.
-- **No build step.** Open `index.html` and it runs. No bundler, no install, no toolchain.
-- **Nearly no dependencies.** Plain HTML, CSS, and JavaScript, plus one vendored decoder that only HEIC files ever touch.
-- **Works offline.** Once the page is loaded, you can disconnect and keep converting.
+| | |
+| --- | --- |
+| **Local only** | Conversion happens on a `<canvas>` in your tab. Files never leave the device. |
+| **No build step** | Open `index.html` and it runs. No bundler, no install, no toolchain. |
+| **Nearly no dependencies** | Plain HTML, CSS, and JavaScript, plus one vendored decoder that only HEIC files ever touch. |
+| **Works offline** | Once the page is loaded, you can disconnect and keep converting. |
 
 ## Features
 
 - Drag and drop files, or browse for them — multiple at a time
 - Conversion queue with per-file progress, status, and before/after size
-- Reads **HEIC, PNG, JPG, WebP, AVIF, GIF, and BMP**; writes **JPG** or **PNG**
 - Converts iPhone **HEIC** photos in every browser, including the ones with no HEIC support of their own
 - Download files one by one, or all at once
 - Remove any file from the queue, or clear the whole thing
 - EXIF metadata is dropped as a side effect of re-encoding
+
+### Formats
+
+| | |
+| --- | --- |
+| **Reads** | HEIC · PNG · JPG · WebP · AVIF · GIF · BMP |
+| **Writes** | JPG · PNG |
 
 ## HEIC Support
 
@@ -69,20 +88,21 @@ Because the project is fully static, it can also be published as-is with GitHub 
 
 ```
 DotStar/
-├── index.html          # Markup for the whole page
+├── index.html              # Markup for the whole page
 └── src/
+    ├── assets/             # Logo mark and favicon
     ├── css/
-    │   └── styles.css  # Styles and theme variables
+    │   └── styles.css      # Styles and theme variables
     ├── js/
-    │   ├── ui.js       # DOM references and queue rendering
-    │   ├── heic.js     # HEIC sniffing and on-demand libheif decoding
-    │   ├── convert.js  # Canvas decode/encode and file download
-    │   └── main.js     # Queue state and event wiring
+    │   ├── ui.js           # DOM references and queue rendering
+    │   ├── heic.js         # HEIC sniffing and on-demand libheif decoding
+    │   ├── convert.js      # Canvas decode/encode and file download
+    │   └── main.js         # Queue state and event wiring
     └── vendor/
-        └── libheif/    # Vendored libheif WebAssembly decoder (LGPL-3.0)
+        └── libheif/        # Vendored libheif WebAssembly decoder (LGPL-3.0)
 ```
 
-## Limitations 
+## Limitations
 
 - **Camera RAW is not supported.** Browsers ship no RAW decoder, so formats like CR2, NEF, ARW, and DNG cannot be read at all.
 - **WebP and AVIF input depends on your browser.** Both decode in current Chrome, Edge, Firefox, and Safari; older versions may fail.
@@ -95,10 +115,7 @@ DotStar/
 
 ## Author
 
-Created by Cr4Vex
-
-GitHub:
-https://github.com/Cr4Vex
+Created by **Cr4Vex** — [github.com/Cr4Vex](https://github.com/Cr4Vex)
 
 ## License
 
