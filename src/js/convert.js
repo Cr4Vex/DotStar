@@ -12,16 +12,16 @@ const Converter = (() => {
         });
     }
 
-    function encode(img, format) {
+    function encode(source, format) {
         const canvas = document.createElement("canvas");
-        canvas.width = img.naturalWidth;
-        canvas.height = img.naturalHeight;
+        canvas.width = source.naturalWidth || source.width;
+        canvas.height = source.naturalHeight || source.height;
         const ctx = canvas.getContext("2d");
         if (format === "jpg") {
             ctx.fillStyle = "#fff";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
-        ctx.drawImage(img, 0, 0);
+        ctx.drawImage(source, 0, 0);
         return new Promise((resolve, reject) => {
             canvas.toBlob(
                 (blob) => (blob ? resolve(blob) : reject(new Error("Could not encode the image."))),
@@ -31,16 +31,19 @@ const Converter = (() => {
         });
     }
 
-    async function toBlob(file, format) {
-        let img;
+    async function decodeFile(file, onStage) {
         try {
-            img = await loadImage(file);
+            return await loadImage(file);
         } catch {
+            if (await Heic.isHeic(file)) return Heic.decode(file, onStage);
             throw new Error(file.type.startsWith("image/")
                 ? "Could not decode this image."
                 : "This file type can't be decoded in the browser.");
         }
-        return encode(img, format);
+    }
+
+    async function toBlob(file, format, onStage = () => {}) {
+        return encode(await decodeFile(file, onStage), format);
     }
 
     function outputName(filename, format) {

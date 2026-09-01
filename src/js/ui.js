@@ -29,6 +29,7 @@ const UI = (() => {
 
     function metaText(item, targetFormat) {
         if (item.status === "error") return item.error || "Conversion failed.";
+        if (item.status === "processing" && item.stage) return item.stage;
         if (item.status === "ready" && item.blob) {
             return formatBytes(item.size) + " → " + formatBytes(item.blob.size)
                 + " · " + item.outFormat.toUpperCase();
@@ -86,7 +87,7 @@ const UI = (() => {
         info.appendChild(nameRow);
 
         const meta = document.createElement("div");
-        meta.className = "qi-meta";
+        meta.className = item.stage && item.status === "processing" ? "qi-meta stage" : "qi-meta";
         meta.textContent = metaText(item, targetFormat);
         info.appendChild(meta);
 

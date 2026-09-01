@@ -384,6 +384,10 @@ a {
     color: var(--text-dim);
 }
 
+.qi-meta.stage {
+    color: var(--text-muted);
+}
+
 .progress {
     margin-top: 9px;
     height: 5px;

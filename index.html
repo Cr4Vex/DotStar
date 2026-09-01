@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Free, private image converter. Convert PNG and JPG in your browser — no uploads, no sign-up, files never leave your device.">
+        <meta name="description" content="Free, private image converter. Convert HEIC, PNG and JPG in your browser — no uploads, no sign-up, files never leave your device.">
 
         <title>DotStar — Local Image Converter</title>
 
@@ -40,12 +40,12 @@
             <div class="main">
                 <div class="col-left">
                     <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Add images">
-                        <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,image/avif,image/gif,image/bmp" multiple hidden>
+                        <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,image/avif,image/gif,image/bmp,image/heic,image/heif,.heic,.heif,.hif" multiple hidden>
                         <div class="upload-badge">
                             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="m9 15 3-3 3 3"/></svg>
                         </div>
                         <div class="drop-title">Drop images or <a href="#" id="browseLink">browse</a></div>
-                        <div class="drop-sub">Supports PNG, JPG, WebP, AVIF, GIF, BMP</div>
+                        <div class="drop-sub">Supports HEIC, PNG, JPG, WebP, AVIF, GIF, BMP</div>
                         <div class="drop-hint">Larger files may take longer to convert.</div>
                     </div>
 
@@ -104,7 +104,7 @@
                 <div class="foot-left">
                     <div class="foot-brand-row">
                         <span class="foot-brand">DOTSTAR</span>
-                        <span class="version-badge">v1.0.0</span>
+                        <span class="version-badge">v1.1.0</span>
                     </div>
                     <span class="foot-tagline">&copy; 2026 DotStar. Static & Local.</span>
                 </div>
@@ -112,6 +112,7 @@
         </footer>
 
         <script src="src/js/ui.js"></script>
+        <script src="src/js/heic.js"></script>
         <script src="src/js/convert.js"></script>
         <script src="src/js/main.js"></script>
     </body>

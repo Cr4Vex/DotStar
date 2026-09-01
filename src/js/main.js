@@ -23,21 +23,36 @@
         UI.render(state.queue, state.format, handlers);
     }
 
+    function loadThumb(item, source) {
+        const url = URL.createObjectURL(source);
+        const probe = new Image();
+        probe.onload = () => {
+            if (!state.queue.includes(item)) return URL.revokeObjectURL(url);
+            item.thumbUrl = url;
+            render();
+        };
+        probe.onerror = () => URL.revokeObjectURL(url);
+        probe.src = url;
+    }
+
     function addFiles(fileList) {
         for (const file of fileList) {
-            state.queue.push({
+            const item = {
                 id: nextId++,
                 file,
                 name: file.name,
                 ext: (file.name.split(".").pop() || "").toUpperCase(),
                 size: file.size,
-                thumbUrl: file.type.startsWith("image/") ? URL.createObjectURL(file) : null,
+                thumbUrl: null,
                 status: "queued",
+                stage: null,
                 pct: 0,
                 blob: null,
                 outFormat: null,
                 error: null,
-            });
+            };
+            state.queue.push(item);
+            loadThumb(item, file);
         }
         render();
     }
@@ -85,17 +100,25 @@
             await wait(140);
         };
 
+        const setStage = (stage) => {
+            item.stage = stage;
+            render();
+        };
+
         item.status = "processing";
         item.error = null;
+        item.stage = null;
         await setPct(10);
 
         try {
             const format = state.format;
             await setPct(55);
-            item.blob = await Converter.toBlob(item.file, format);
+            item.blob = await Converter.toBlob(item.file, format, setStage);
             item.outFormat = format;
+            item.stage = null;
             await setPct(100);
             item.status = "ready";
+            if (!item.thumbUrl) loadThumb(item, item.blob);
         } catch (err) {
             item.status = "error";
             item.error = err.message;
